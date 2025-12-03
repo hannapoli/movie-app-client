@@ -1,0 +1,16 @@
+<%- include("../templates/header") %>
+
+    <main class="container">
+        <h1>Crear</h1>
+
+        <form action="./create" method="post" enctype="multipart/form-data">
+            <input type='hidden' id="id" name="id" value="<%= peli.id %>">
+            <input type="text" id="titulo" name="titulo" value="<%= peli.titulo %>">
+            este es el formulario
+            <input type="submit">
+        </form>
+    </main>
+    <%- include("../templates/footer") %>
+        </body>
+
+        </html>
