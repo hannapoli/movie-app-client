@@ -4,7 +4,7 @@ const router = express.Router();
 const { vistaCrearUsuario, crearUsuario } = require('../../../controllers/admin/user/adminUser.controller');
 
 router.get('/user/create', vistaCrearUsuario);
-router.post('/user/create', crearUsuario);
+router.post('/user/createback', crearUsuario);
 
 
 

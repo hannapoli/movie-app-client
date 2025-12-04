@@ -3,12 +3,16 @@
     <main class="container">
         <h1>Crear</h1>
 
-        <form action="./create" method="post" enctype="multipart/form-data">
-            <input type="text" id="usuario" name="usuario">
-            <input type="email" id="email" name="email">
-            <input type="text" id="contrasena" name="contrasena">
-            este es el formulario de crear usuario
-            <input type="submit">
+        <form action="./createback" method="POST"  name="formRegistro"  novalidate>
+            <input type="text" id="nombre_usuario" name="nombre_usuario" placeholder="Nombre">
+            <input type="email" id="email" name="email" placeholder="Email">
+            <select name="role_usuario" id="role_usuario">
+                <option selected>Selecione un rol</option>
+                <option value="administrador">administrador</option>
+                <option value="user">user</option>
+            </select>
+            <input type="text" id="contrasena" name="contrasena" placeholder="password">
+            <button type="submit">enviar</button>
         </form>
     </main>
 <%- include("../../templates/footer") %>

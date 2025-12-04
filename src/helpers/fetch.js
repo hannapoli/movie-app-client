@@ -2,7 +2,7 @@ const conectar = async (urlApi, method='GET', body={}, token) => {
     try {
       let options;
 
-      if(method =='POST' || method =='PUT'){
+      if(method =='POST' || method =='PUT' || method =='DELETE') {
         options = {
           method,
           headers: {

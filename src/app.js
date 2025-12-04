@@ -18,9 +18,8 @@ app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 
 //Rutas
-//app.use("/", require(""./routes/public.routes"))
+app.use("/", require("./routes/auth.routes"));
 app.use("/admin", require("./routes/admin/admin.routes"));
-
 app.use("/admin", require("./routes/admin/user/admin.user.routes"));
 app.use("/admin", require("./routes/admin/movies/admin.movies.routes"));
 
