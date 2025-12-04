@@ -1,0 +1,15 @@
+<%- include("../../templates/header") %>
+
+    <main class="container">
+        <h1>Crear</h1>
+
+        <form action="./create" method="post" enctype="multipart/form-data">
+            <input type="text" id="usuario" name="usuario">
+            <input type="email" id="email" name="email">
+            <input type="text" id="contrasena" name="contrasena">
+            este es el formulario de crear usuario
+            <input type="submit">
+        </form>
+    </main>
+<%- include("../../templates/footer") %>
+
