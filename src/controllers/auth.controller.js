@@ -7,11 +7,13 @@ const mostrarLogin = (req, res) => {
 
 const login = async (req, res) => {
     const datos = { "email": req.body.email, "password": req.body.password }
-    //console.log(datos);
     try {   
-        const login = await conectar(`http://localhost:4001/api/v1/auth/login`, 'POST', datos);
-        console.log(login, "AAAAAAAAAAAAAAA");
-        return res = login.msg
+        const login = await conectar(`http://localhost:4001/api/v1/auth/login`, 'POST',datos);
+        if (login.success) {
+            return  console.log("SIII funciono");//res.redirect('/admin');
+        } else {
+            return  console.log("no funciono");//res.render('public/loginPage', { title: 'Login', error: loginResp.msg });
+        }
     } catch (error) {
         
     }
