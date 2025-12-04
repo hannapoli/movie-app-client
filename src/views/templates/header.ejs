@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/main.css">
     <title><%- title %></title>
 </head>
 
 <body>
 
-    <h1>
+    <p>
         <%= title %>
-    </h1>
-    <% if (role && role=="admin" ) { %>
+    </p>
+    <% if (role && role=="administrador" ) { %>
 
-        <p>nav de admin</p>
+        <%- include('../admin/template/navAdmin') %>
 
-        <% } else { %>
-            <p>nav de user</p>
-            <% } %>
-</body>
+            <% } else { %>
+                <p>nav de user</p>
+                <% } %>

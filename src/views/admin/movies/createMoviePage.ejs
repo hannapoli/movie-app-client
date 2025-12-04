@@ -1,0 +1,36 @@
+<%- include("../../templates/header") %>
+
+    <main class="container">
+        <h1>Añadir una película</h1>
+
+        <form action="http:/localhost:4001/api/v1/admin/peliculas/" method="post" enctype="multipart/form-data" class="flexColumn">
+            <input type="number" id="id_pelicula" name="id_pelicula" hidden>
+            <div class="flexColumn">
+                <label for="tit_pelicula">Título</label>
+                <input type="text" id="tit_pelicula" name="tit_pelicula">
+            </div>
+            <div class="flexColumn">
+                <label for="director">Director</label>
+                <input type="text" id="director" name="director">
+            </div>
+            <div class="flexColumn">
+                <label for="ano_pelicula">Año</label>
+                <input type="number" id="ano_pelicula" name="ano_pelicula">
+            </div>
+            <div class="flexColumn">
+                <label for="genero">Genero</label>
+                <input type="text" id="genero" name="genero">
+            </div>
+            <div class="flexColumn">
+                <label for="duracion">Duración</label>
+                <input type="text" id="duracion" name="duracion">
+            </div>
+            <div class="flexColumn">
+                <label for="img_pelicula">Imagen</label>
+                <input type="file" id="img_pelicula" name="img_pelicula">
+            </div>
+
+            <input type="submit" value="Añadir">
+        </form>
+    </main>
+    <%- include("../../templates/footer") %>

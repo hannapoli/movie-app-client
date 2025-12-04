@@ -19,7 +19,7 @@ app.set("views", __dirname + "/views");
 
 //Rutas
 //app.use("/", require(""./routes/public.routes"))
-app.use("/admin", require("./routes/admin.routes"));
+app.use("/admin", require("./routes/admin/movies/admin.movies.routes"));
 
 /* app.use("/user", (req, res) => {
     res.render("./routes/user.routes")
