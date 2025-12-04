@@ -1,5 +1,5 @@
 // controllers/adminUsers.controller.js
-const { conectar } = require('../helpers/fetch');
+const { conectar } = require('../../../helpers/fetch');
 const urlBse = process.env.BACKEND_URL;
 
 const vistaCrearUsuario = (req, res) => {
