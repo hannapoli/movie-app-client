@@ -1,19 +1,19 @@
+<%- include("../templates/header.ejs") %>
 <main>
-  <div>
-    <h1>Inicia sesión</h1>
-    <form action="/login" method="post" class="auth-form" autocomplete="off">
-      <label>
-        <span>Correo</span>
-        <input name="email" type="email" placeholder="tu@correo.com" required />
-      </label>
-      <label>
-        <span>Contraseña</span>
-        <input type="password" name="password" id="password" required/>
-      </label>
-      <div>
-        <button type="submit" class="btn btn-primary">Entrar</button>
-        <a href="/registro">Crear cuenta</a>
-      </div>
-    </form>
-  </div>
+  <div class="auth-container">
+        <h1 class="title">Iniciar sesión</h1>
+
+        <form action="/login" method="POST" class="auth-form">
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+
+            <button type="submit" class="btn-primary">Entrar</button>
+        </form>
+
+        <p class="switch-text">
+            ¿No tienes cuenta?
+            <a href="/registro" class="switch-link">Regístrate</a>
+        </p>
+    </div>
 </main>
+<%- include("../templates/footer.ejs") %>

@@ -1,5 +1,7 @@
 const { conectar } = require('../helpers/fetch');
+const jwt = require('jsonwebtoken');
 const urlBase = process.env.BACKEND_URL;
+const SECRET = process.env.SECRET_KEY;
 const { queRol } = require('../middlewares/verificarToken')
 const mostrarLogin = (req, res) => {
     const rol = queRol(req)
@@ -32,10 +34,12 @@ const login = async (req, res) => {
             httpOnly: true,
             maxAge: 3600000,
         });
-
-        if (user.role_usuario == "administrador" ) {
+        const decoded = jwt.verify(token, SECRET);
+        const encontrado = decoded.role_usuario;
+        //console.log(encontrado)
+        if (encontrado == "administrador" ) {
             res.redirect('/admin/indexPage');
-        }else if(user.role_usuario == "user"){
+        }else if(encontrado == "user"){
             res.render('user/principalUserPage');
         }
     } catch (error) {

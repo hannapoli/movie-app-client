@@ -35,7 +35,17 @@ const crearUsuario = async (req, res) => {
   }
 };
 
+const vistaEditarUsuario = (req, res) =>{
+    
+}
+const editarUsuario = (req, res) =>{
+
+}
+
+
 module.exports = {
   vistaCrearUsuario,
-  crearUsuario
+  crearUsuario,
+  editarUsuario,
+  vistaEditarUsuario
 };

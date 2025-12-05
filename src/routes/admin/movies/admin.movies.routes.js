@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {verificarRol} = require('../../../middlewares/verificarRol');
+//const {verificarRol} = require('../../../middlewares/verificarRol');
 const {mostrarPeliculas, createPeliculaForm, crearPelicula, editarPeliculaForm, editarPelicula, eliminarPeliculaForm, eliminarPelicula} = require('../../../controllers/admin/movies/admin.movies.controller');
 
 

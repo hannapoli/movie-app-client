@@ -1,4 +1,4 @@
-const ham = document.getElementById("hamburger");
+/* const ham = document.getElementById("hamburger");
 const nav = document.getElementById("navMenu");
 
 ham.addEventListener("click", () => {
@@ -18,4 +18,4 @@ searchInput.addEventListener("input", () => {
         card.style.display = title.includes(term) ? "block" : "none";
     });
 });
-
+ */

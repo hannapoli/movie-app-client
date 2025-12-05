@@ -1,9 +1,9 @@
 <%- include("../../templates/header") %>
 
-    <main class="container">
-        <h1>Crear</h1>
+    <main class="auth-container">
+        <h2 class="title">Crear Usuario</h2>
 
-        <form action="./createback" method="POST"  name="formRegistro"  novalidate>
+        <form action="./createback" method="POST"  name="formRegistro"  novalidate class="auth-form">
             <input type="text" id="nombre_usuario" name="nombre_usuario" placeholder="Nombre">
             <input type="email" id="email" name="email" placeholder="Email">
             <select name="role_usuario" id="role_usuario">
@@ -12,7 +12,7 @@
                 <option value="user">user</option>
             </select>
             <input type="text" id="contrasena" name="contrasena" placeholder="password">
-            <button type="submit">enviar</button>
+            <button class="btn-primary" type="submit">enviar</button>
         </form>
     </main>
 <%- include("../../templates/footer") %>

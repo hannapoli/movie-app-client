@@ -1,26 +1,19 @@
 // routes/adminUsers.routes.js
 const express = require('express');
 const router = express.Router();
-const { vistaCrearUsuario, crearUsuario } = require('../../../controllers/admin/user/adminUser.controller');
+const { vistaCrearUsuario, crearUsuario, editarUsuario, vistaEditarUsuario } = require('../../../controllers/admin/user/adminUser.controller');
 
 router.get('/user/create', vistaCrearUsuario);
 router.post('/user/createback', crearUsuario);
 
 
 
-/* router.get('/user/upgrade/:id', (req, res) =>{
-    
-})
+router.get('/user/upgrade/:id', vistaEditarUsuario)
 
-router.post('/user/upgrade', (req, res) =>{
-    //recoger el req body
-
-    //lamar por fetch al endpoint de actualizar
-
-})
+router.post('/user/upgrade', editarUsuario)
 
 
-
+/* 
 router.get('/user/delete', (req, res) =>{
     
 })

@@ -1,0 +1,20 @@
+<%- include("../../templates/header") %>
+
+     <main class="container mb100">
+        <h2 class="title">Ver todos Usuarios</h2>
+        <div class="pelis-grid" id="pelisGrid">
+        <% usuarios.forEach(usuarios => { %>
+                <div class="peli-card">
+                    <div class="peli-info">
+                        <p class="peli-titulo"><%= nombre_usuario %></p>
+                        <p class="peli-titulo"><%= rolerole_usuario></p>
+                        <p class="peli-titulo"><%= email%></p>
+                        <button class="like-btn">❤</button>
+                    </div>
+                </div>
+        <% }) %> 
+        </div>
+
+    </main>
+<%- include("../../templates/footer") %>
+
