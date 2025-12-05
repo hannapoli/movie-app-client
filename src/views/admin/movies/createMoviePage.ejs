@@ -3,11 +3,11 @@
     <main class="container">
         <h1>Añadir una película</h1>
 
-        <form action="http:/localhost:4001/api/v1/admin/peliculas/" method="post" enctype="multipart/form-data" class="flexColumn formulario">
-            <input type="number" id="id_pelicula" name="id_pelicula" hidden>
+        <form action="<%=urlCreate%>" method="POST" enctype="multipart/form-data" class="flexColumn">
+            <input type="number" id="id_pelicula" name="id_pelicula" novalidate hidden>
             <div class="flexColumn">
                 <label for="tit_pelicula">Título</label>
-                <input type="text" id="tit_pelicula" name="tit_pelicula">
+                <input type="text" id="tit_pelicula" name="tit_pelicula" novalidate>
             </div>
             <div class="flexColumn">
                 <label for="director">Director</label>
@@ -15,19 +15,19 @@
             </div>
             <div class="flexColumn">
                 <label for="ano_pelicula">Año</label>
-                <input type="number" id="ano_pelicula" name="ano_pelicula">
+                <input type="number" id="ano_pelicula" name="ano_pelicula" novalidate>
             </div>
             <div class="flexColumn">
                 <label for="genero">Genero</label>
-                <input type="text" id="genero" name="genero">
+                <input type="text" id="genero" name="genero" novalidate>
             </div>
             <div class="flexColumn">
                 <label for="duracion">Duración</label>
-                <input type="text" id="duracion" name="duracion">
+                <input type="text" id="duracion" name="duracion" novalidate>
             </div>
             <div class="flexColumn">
                 <label for="img_pelicula">Imagen</label>
-                <input type="file" id="img_pelicula" name="img_pelicula">
+                <input type="file" id="img_pelicula" name="img_pelicula" novalidate>
             </div>
 
             <input type="submit" value="Añadir">

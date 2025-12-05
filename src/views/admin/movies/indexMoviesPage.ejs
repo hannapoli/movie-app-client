@@ -6,7 +6,6 @@
         <table>
             <thead>
                 <tr>
-                    <!-- <th>ID</th> -->
                     <th>Título</th>
                     <th>Director</th>
                     <th>Año</th>
@@ -17,18 +16,27 @@
                 </tr>
             </thead>
             <tbody>
-                <% peliculas.forEach((peli) => { %>
+                <% peliculas.forEach((peli)=> { %>
                     <tr>
-                        <!-- <td><%= peli.id %></td> -->
-                        <td><%= peli.titulo %></td>
-                        <td><%= peli.director %></td>
-                        <td><%= peli.ano %></td>
-                        <td><%= peli.genero %></td>
-                        <td><%= peli.duracion %></td>
+                        <td>
+                            <%= peli.titulo %>
+                        </td>
+                        <td>
+                            <%= peli.director %>
+                        </td>
+                        <td>
+                            <%= peli.ano %>
+                        </td>
+                        <td>
+                            <%= peli.genero %>
+                        </td>
+                        <td>
+                            <%= peli.duracion %>
+                        </td>
                         <td><img src="<%= peli.imagen %>" alt="Imagen de <%= peli.titulo %>"></td>
                         <td>
-                            <form action="http://localhost:4001/api/v1/admin/peliculas/<%= peli.id %>" method="delete">
-                                <button type="submit">Eliminar</button>
+                            <a href="./edit<%= peli.id %>"><button>+</button></a>
+                            <a href="./delete<%= peli.id %>"><button>X</button></a>
                             </form>
                         </td>
                     </tr>
