@@ -1,4 +1,5 @@
 const conectar = async (urlApi, method = 'GET', body = {}, token) => {
+  let errorBody;
   try {
     let options = {
       method,
@@ -9,6 +10,7 @@ const conectar = async (urlApi, method = 'GET', body = {}, token) => {
 
     if (token) {
       options.headers['Authorization'] = `Bearer ${token}`;
+      options.credentials = 'include'
     }
 
     if (method === 'POST' || method === 'PUT' || method === 'DELETE') {
@@ -21,7 +23,13 @@ const conectar = async (urlApi, method = 'GET', body = {}, token) => {
       const datos = await resp.json();
       return datos;
     } else {
-      throw new Error('Error de la solicitud');
+      try {
+        errorBody = await resp.json();
+      } catch (err) {
+        errorBody = await resp.text();
+      }
+      console.error('Error de la solicitud:', resp.status, errorBody);
+      throw new Error(`Error de la solicitud: ${resp.status} - ${JSON.stringify(errorBody)}`);
     }
   } catch (error) {
     console.log(error);

@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const {verificarRol} = require('../../../middlewares/verificarRol');
 const {mostrarPeliculas, mostrarFormCrearPelicula, submitCrearPelicula, mostrarFormEditarPelicula} = require('../../../controllers/admin/movies/admin.movies.controller')
 
 //Añadir verificarRol a las ruutas!!!!!!

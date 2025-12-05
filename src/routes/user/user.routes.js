@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { mostrarPanelAdmin  } = require('../../controllers/admin/panelAdmin.controller');
+const { mostrarPaginaPrincipal } = require('../../controllers/user/inicioUser.controller');
 const { verificarToken, verificarRol } = require('../../middlewares/verificarToken');
 
-router.get('/',[verificarToken,verificarRol('administrador')], mostrarPanelAdmin);
+router.get('/',[ verificarToken,verificarRol('user')], mostrarPaginaPrincipal);
+
 
 
 
