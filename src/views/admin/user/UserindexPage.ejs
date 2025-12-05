@@ -1,17 +1,17 @@
-<%- include('../templates/header') %>
+<%- include('../../templates/header') %>
     <main class="container">
         <h1 class="title">Administrador</h1>
 
         <div class="options">
 
-            <a href="user/create" class="option-card">
+            <a href="/admin/user/usercrear" class="option-card">
                 <div class="card-content">
-                    <span class="emoji">​🎬​​</span>
-                    <h2>Ver películas</h2>
+                    <span class="emoji">​👤​</span>
+                    <h2>Crear Usuarios</h2>
                 </div>
             </a>
 
-            <a href="/admin/user" class="option-card">
+            <a href="/admin/user/userall" class="option-card">
                 <div class="card-content">
                     <span class="emoji">👥​​</span>
                     <h2>Ver usuarios</h2>
@@ -19,5 +19,4 @@
             </a>
         </div>
     </main>
-
-<%- include('../templates/footer') %>
+<%- include('../../templates/footer') %>
