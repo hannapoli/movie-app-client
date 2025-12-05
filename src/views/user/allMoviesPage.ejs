@@ -1,0 +1,22 @@
+<%- include('../templates/header') %>
+
+     <main class="container mb100">
+
+        <input type="text" class="search-input" placeholder="Buscar películas..." id="searchInput">
+
+        <div class="pelis-grid" id="pelisGrid">          
+
+        <% peliculas.forEach(pelicula => { %>
+                <div class="peli-card">
+                    <img src="<%= img_pelicula %>" alt="<%= tit_pelicula %>">
+                    <div class="peli-info">
+                        <p class="peli-titulo"><%= tit_pelicula %></p>
+                        <a href="/user/favorito"><button class="like-btn">❤</button></a>
+                    </div>
+                </div>
+        <% }) %> 
+        </div>
+
+    </main>
+
+<%- include('../templates/footer') %>

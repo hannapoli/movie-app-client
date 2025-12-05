@@ -1,0 +1,19 @@
+<%- include('../templates/header') %>
+
+    <main class="detalle-container">
+        <div class="detalle-card">
+            <img src="<%= img_pelicula %>" alt="<%= tit_pelicula %>" class="detalle-img">
+
+            <div class="detalle-info">
+                <h1 class="detalle-titulo"><%= tit_pelicula %></h1>
+                <p class="detalle-descripcion"><%= ano_pelicula%></p>
+                <p class="detalle-descripcion"><%= director%></p>
+                <p class="detalle-descripcion"><%= duracion%></p>
+                <p class="detalle-descripcion"><%= genero%></p>
+                <!--btn para agragar a favoritos como poner????? -->
+                <a href="/user/favorito"><button class="like-btn">❤ Agregar a favoritos</button></a>
+            </div>
+        </div>
+       
+    </main>
+<%- include('../templates/footer') %>
