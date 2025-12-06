@@ -10,7 +10,7 @@ const mostrarLogin = (req, res) => {
         if(rol == "user"){
             return res.redirect('/user');
         } else if(rol == "administrador")
-            return res.redirect('/admin/indexPage');
+            return res.redirect('/admin/');
   }
     res.render('public/loginPage', { title: 'Login' });
 };
@@ -38,7 +38,7 @@ const login = async (req, res) => {
         const encontrado = decoded.role_usuario;
         //console.log(encontrado)
         if (encontrado == "administrador" ) {
-            res.redirect('/admin/indexPage');
+            res.redirect('admin/');
         }else if(encontrado == "user"){
             res.render('user/principalUserPage');
         }

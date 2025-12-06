@@ -2,6 +2,14 @@
 const { conectar } = require('../../../helpers/fetch');
 const urlBse = process.env.BACKEND_URL;
 
+const inicioUsuario = (req, res) =>{
+  res.render('admin/user/UserindexPage', { title: 'PanelUser' });
+};
+
+const todosUsuarios = (req, res) =>{
+  res.render('admin/user/allUserpage', { title: 'PanelUserAll' });
+};
+
 const vistaCrearUsuario = (req, res) => {
   res.render('admin/user/createUserpage', {
     title: 'Crear usuario',
@@ -37,15 +45,21 @@ const crearUsuario = async (req, res) => {
 
 const vistaEditarUsuario = (req, res) =>{
     
-}
-const editarUsuario = (req, res) =>{
+};
+const editarUsuario = async (req, res) =>{
 
-}
+};
+const eliminarUsuario = (req, res) =>{
+
+};
 
 
 module.exports = {
+  todosUsuarios,
+  inicioUsuario,
   vistaCrearUsuario,
   crearUsuario,
   editarUsuario,
-  vistaEditarUsuario
+  vistaEditarUsuario,
+  eliminarUsuario
 };
