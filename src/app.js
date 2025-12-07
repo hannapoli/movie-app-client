@@ -1,5 +1,4 @@
 const express = require("express");
-const cors = require("cors");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 
@@ -10,7 +9,6 @@ const port = process.env.PORT || 3002;
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 app.use(cookieParser());
 
 //Configuración de EJS:

@@ -2,7 +2,7 @@
 
     <main class="container">
         <h1>Películas</h1>
-        <a href="./create"><button>Añadir película</button></a>
+        <a href="/admin/movies/create"><button>Añadir película</button></a>
         <table>
             <thead>
                 <tr>
@@ -19,13 +19,13 @@
                 <% peliculas.forEach((peli)=> { %>
                     <tr>
                         <td>
-                            <%= peli.titulo %>
+                            <%= peli.tit_pelicula %>
                         </td>
                         <td>
                             <%= peli.director %>
                         </td>
                         <td>
-                            <%= peli.ano %>
+                            <%= peli.ano_pelicula %>
                         </td>
                         <td>
                             <%= peli.genero %>
@@ -33,11 +33,19 @@
                         <td>
                             <%= peli.duracion %>
                         </td>
-                        <td><img src="<%= peli.imagen %>" alt="Imagen de <%= peli.titulo %>"></td>
                         <td>
-                            <a href="./edit<%= peli.id %>"><button>+</button></a>
-                            <a href="./delete<%= peli.id %>"><button>X</button></a>
-                            </form>
+                            <% if (peli.filename) { %>
+                                <img src="<%= backendUrl %>uploads/<%= peli.filename %>" alt="<%= peli.tit_pelicula %>"
+                                    style="max-width: 4em;">
+                                <% } else { %>
+                                    <span>
+                                        <%= peli.tit_pelicula %>
+                                    </span>
+                                    <% } %>
+                        </td>
+                        <td>
+                            <a href="/admin/movies/edit/<%= peli.id_pelicula %>"><button>✏️</button></a>
+                            <a href="/admin/movies/delete/<%= peli.id_pelicula %>"><button>🗑️</button></a>
                         </td>
                     </tr>
                     <% }); %>
