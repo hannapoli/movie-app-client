@@ -5,7 +5,7 @@ const { verificarToken, verificarRol } = require('../../middlewares/verificarTok
 
 router.get('/',[ verificarToken,verificarRol('user')], mostrarPaginaPrincipal);
 
-
+router.get('/',[ verificarToken,verificarRol('user')],)
 
 
 module.exports = router;
