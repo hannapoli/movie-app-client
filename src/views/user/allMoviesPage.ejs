@@ -1,22 +1,44 @@
 <%- include('../templates/header') %>
 
-     <main class="container mb100">
+<main class="container mb100">
 
-        <input type="text" class="search-input" placeholder="Buscar películas..." id="searchInput">
+    <input 
+        type="text" 
+        class="search-input" 
+        placeholder="Buscar películas..." 
+        id="searchInput"
+    >
 
-        <div class="pelis-grid" id="pelisGrid">          
+    <div class="pelis-grid" id="pelisGrid">
 
         <% peliculas.forEach(pelicula => { %>
-                <div class="peli-card">
-                    <img src="<%= img_pelicula %>" alt="<%= tit_pelicula %>">
-                    <div class="peli-info">
-                        <p class="peli-titulo"><%= tit_pelicula %></p>
-                        <a href="/user/favorito"><button class="like-btn">❤</button></a>
-                    </div>
-                </div>
-        <% }) %> 
-        </div>
+            <div class="peli-card">
 
-    </main>
+                <img 
+                    src="http://localhost:4001/api/v1/uploads/<%= pelicula.filename %>" 
+                    alt="<%= pelicula.tit_pelicula %>"
+                >
+
+                <div class="peli-info">
+
+                    <p class="peli-titulo"><%= pelicula.tit_pelicula %></p>
+
+                    <!-- VER DETALLES -->
+                    <a href="/user/search/<%= pelicula.id_pelicula %>">
+                        <button class="details-btn">Ver más</button>
+                    </a>
+
+                    <!-- AÑADIR A FAVORITOS -->
+                    <form action="/favoritos/<%= pelicula.id_pelicula %>" method="POST">
+                        <button class="like-btn">❤</button>
+                    </form>
+
+                </div>
+            </div>
+        <% }) %>
+
+    </div>
+
+</main>
 
 <%- include('../templates/footer') %>
