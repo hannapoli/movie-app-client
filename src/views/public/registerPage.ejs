@@ -2,9 +2,9 @@
 <div class="auth-container">
         <h1 class="title">Crear cuenta</h1>
         <form action="/resgistro-back" method="POST" class="auth-form">
-            <input type="text" name="username" placeholder="Nombre" required>
-            <input type="email" name="email" placeholder="Correo electrónico" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
+            <input type="text" name="username" placeholder="Nombre" required novalidate>
+            <input type="email" name="email" placeholder="Correo electrónico" required novalidate>
+            <input type="password" name="password" placeholder="Contraseña" required novalidate>
             <button type="submit" class="btn-primary">Registrarse</button>
         </form>
         <p class="switch-text">
