@@ -18,14 +18,14 @@ router.post('/create', upload.single('imagen'), [verificarToken, verificarRol('a
 //Mostrar la vista con el formuairo de editar por get
 router.get('/edit/:id', [verificarToken, verificarRol('administrador')], editarPeliculaForm)
 
-//Modificar los datos de la película:
-router.put('/edit/:id', [verificarToken, verificarRol('administrador')], editarPelicula);
+//Mandar los datos de la película por post a esta ruta para mandarla al backend con put en el controlador para editarla:
+router.post('/edit/:id', upload.single('imagen'), [verificarToken, verificarRol('administrador')], editarPelicula);
 
 //Mostrar la película por el id para eliminar:
 router.get('/delete/:id', [verificarToken, verificarRol('administrador')], eliminarPeliculaForm);
 
-//Eliminar la película por el id:
-router.delete('/delete/:id', [verificarToken, verificarRol('administrador')], eliminarPelicula);
+//Mandar los datos de la película por post a esta ruta para mandarla al backend con put en el controlador para eliminarla:
+router.post('/delete/:id', [verificarToken, verificarRol('administrador')], eliminarPelicula);
 
 module.exports = router;
 

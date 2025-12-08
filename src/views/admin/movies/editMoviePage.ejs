@@ -1,14 +1,14 @@
 <%- include("../../templates/header") %>
 
     <main class="container">
-        <h1>Editar una película</h1>
+        <h1>Modificar la película</h1>
 
-        <form action="<%= urlEdit %><%= pelicula.id %>" method="PUT"
+        <form action="/admin/movies/edit/<%= pelicula.id_pelicula %>" method="POST"
             enctype="multipart/form-data" class="flexColumn">
-            <input type="number" id="id_pelicula" name="id_pelicula" value="<%= pelicula.id %>" hidden novalidate>
+            <input type="number" id="id_pelicula" name="id_pelicula" value="<%= pelicula.id_pelicula %>" hidden novalidate>
             <div class="flexColumn">
                 <label for="tit_pelicula">Título</label>
-                <input type="text" id="tit_pelicula" name="tit_pelicula" value="<%= pelicula.titulo %>" novalidate>
+                <input type="text" id="tit_pelicula" name="tit_pelicula" value="<%= pelicula.tit_pelicula %>" novalidate>
             </div>
             <div class="flexColumn">
                 <label for="director">Director</label>
@@ -16,7 +16,7 @@
             </div>
             <div class="flexColumn">
                 <label for="ano_pelicula">Año</label>
-                <input type="number" id="ano_pelicula" name="ano_pelicula" value="<%= pelicula.ano %>" novalidate>
+                <input type="number" id="ano_pelicula" name="ano_pelicula" value="<%= pelicula.ano_pelicula %>" novalidate>
             </div>
             <div class="flexColumn">
                 <label for="genero">Genero</label>
@@ -27,11 +27,14 @@
                 <input type="text" id="duracion" name="duracion" value="<%= pelicula.duracion %>" novalidate>
             </div>
             <div class="flexColumn">
-                <label for="img_pelicula">Imagen</label>
-                <input type="file" id="img_pelicula" name="img_pelicula" value="<%= pelicula.imagen %>" novalidate>
+                <label for="imagen">Imagen</label>
+                <input type="file" id="imagen" name="imagen" novalidate>
+                <% if (pelicula.filename) { %>
+                    <p class="info">Actual: <%= pelicula.filename %></p>
+                <% } %>
             </div>
 
-            <input type="submit">
+            <input type="submit" value="Modificar">
         </form>
     </main>
     <%- include("../../templates/footer") %>
