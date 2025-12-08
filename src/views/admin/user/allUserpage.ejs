@@ -2,18 +2,18 @@
      <main class="container mb100">
         <h2 class="title">Ver todos Usuarios</h2>
         <div class="pelis-grid" id="pelisGrid">
-        <% usuarios.forEach(usuarios => { %>
-                <div class="peli-card">
-                    <div class="peli-info">
-                        <p class="peli-titulo"><%= nombre_usuario %></p>
-                        <p class="peli-titulo"><%= rolerole_usuario></p>
-                        <p class="peli-titulo"><%= email%></p>
-                        <button class="like-btn">❤</button>
-                    </div>
+        <% usuarios.forEach(usuario => { %>
+            <div class="peli-card">
+                <div class="peli-info">
+                    <p class="peli-titulo"><%= usuario.nombre_usuario %></p>
+                    <p class="peli-titulo"><%= usuario.role_usuario %></p>
+                    <p class="peli-titulo"><%= usuario.email %></p>
+                    <button class="like-btn">❤</button>
+                    <a href='/admin/user/userUpgrade/<%= usuario.id_usuario %>' class="edit-btn">Editar</a>
                 </div>
-        <% }) %> 
+            </div>
+        <% }) %>
         </div>
-
     </main>
 <%- include('../../templates/footer') %>
 

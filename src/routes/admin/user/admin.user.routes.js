@@ -5,14 +5,13 @@ const { vistaCrearUsuario, crearUsuario, editarUsuario, vistaEditarUsuario, elim
 
 router.get('/', inicioUsuario);
 router.get('/userall', todosUsuarios);
+
 router.get('/usercrear', vistaCrearUsuario);
-router.post('/user/createback', crearUsuario);
+router.post('/userCreateback', crearUsuario);
 
+router.get('/userUpgrade/:id', vistaEditarUsuario);
+router.post('/userUpgrade/:id', editarUsuario);
 
-
-router.get('/user/upgrade/:id', vistaEditarUsuario)
-
-router.post('/user/upgrade', editarUsuario)
 
 
 

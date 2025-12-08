@@ -4,20 +4,20 @@ const urlBase = process.env.BACKEND_URL;
 const SECRET = process.env.SECRET_KEY;
 const { queRol } = require('../middlewares/verificarToken')
 const mostrarLogin = (req, res) => {
-    const rol = queRol(req)
-    //console.log(rol);
     if (req.cookies.miToken) {
+        const rol = queRol(req)
+        //console.log(rol);
         if(rol == "user"){
             return res.redirect('/user');
         } else if(rol == "administrador")
             return res.redirect('/admin/');
-  }
+    }
     res.render('public/loginPage', { title: 'Login' });
 };
 const registrar = (req, res) =>{
     if (req.cookies.miToken) {
-    return res.redirect('/user');
-  }
+        return res.redirect('/user');
+    }
     res.render('public/registerPage', { title: 'Register'})
 }
 
@@ -34,6 +34,7 @@ const login = async (req, res) => {
             httpOnly: true,
             maxAge: 3600000,
         });
+        //como el no se crea hasta que se guarde lo decodificamos aqui
         const decoded = jwt.verify(token, SECRET);
         const encontrado = decoded.role_usuario;
         //console.log(encontrado)

@@ -35,4 +35,16 @@ const queRol = (req) => {
     return undefined;
   }
 };
-module.exports = { verificarToken, verificarRol, queRol };
+
+const queId = (req) => {
+    const token = req.cookies.miToken;
+    if (!token) return undefined;
+    try {
+        const decoded = jwt.verify(token, SECRET);
+        return decoded.uid;
+    } catch (error) {
+        console.log(error)
+        return undefined;
+    }
+}
+module.exports = { verificarToken, verificarRol, queRol, queId };

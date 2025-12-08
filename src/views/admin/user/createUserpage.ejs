@@ -3,7 +3,18 @@
     <main class="auth-container">
         <h2 class="title">Crear Usuario</h2>
 
-        <form action="./createback" method="POST"  name="formRegistro"  novalidate class="auth-form">
+                <% if (typeof success !== 'undefined') { %>
+                    <div style="color: green; margin-bottom: 1em;">
+                        <%= success %>
+                    </div>
+                <% } %>
+                <% if (typeof error !== 'undefined') { %>
+                    <div style="color: red; margin-bottom: 1em;">
+                        <%= error %>
+                    </div>
+                <% } %>
+
+        <form action="/admin/user/userCreateback" method="POST"  name="formRegistro"  novalidate class="auth-form">
             <input type="text" id="nombre_usuario" name="nombre_usuario" placeholder="Nombre">
             <input type="email" id="email" name="email" placeholder="Email">
             <select name="role_usuario" id="role_usuario">
