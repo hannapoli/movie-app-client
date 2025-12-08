@@ -1,44 +1,63 @@
+
 <%- include('../templates/header') %>
+<%- include('./templates/nav') %>
 
-<main class="container mb100">
-
-    <input 
-        type="text" 
-        class="search-input" 
-        placeholder="Buscar películas..." 
-        id="searchInput"
-    >
+<main class="container">
+    <h1>Películas</h1>
+    <div class="flexColumn container-btn">
+        <a href="/user" class="btn-secondary" style="margin-bottom:12px;">← Volver a principal</a>
+        <form action="/user/buscador/buscar" method="POST" class="search-form">
+            <input 
+                type="text" 
+                class="search-input" 
+                name="tit_pelicula"
+                placeholder="Buscar películas..." 
+                id="searchInput"
+            >
+            <button type="submit" class="btn-primary">Buscar</button>
+        </form>
+    </div>
+    <% if (typeof msg !== 'undefined' && msg) { %>
+        <p class="info"><%= msg %></p>
+    <% } %>
 
     <div class="pelis-grid" id="pelisGrid">
-
-        <% peliculas.forEach(pelicula => { %>
+        <% peliculas.forEach((peli) => { %>
             <div class="peli-card">
-
-                <img 
-                    src="http://localhost:4001/api/v1/uploads/<%= pelicula.filename %>" 
-                    alt="<%= pelicula.tit_pelicula %>"
-                >
-
-                <div class="peli-info">
-
-                    <p class="peli-titulo"><%= pelicula.tit_pelicula %></p>
-
-                    <!-- VER DETALLES -->
-                    <a href="/user/search/<%= pelicula.id_pelicula %>">
-                        <button class="details-btn">Ver más</button>
-                    </a>
-
-                    <!-- AÑADIR A FAVORITOS -->
-                    <form action="/favoritos/<%= pelicula.id_pelicula %>" method="POST">
-                        <button class="like-btn">❤</button>
-                    </form>
-
+                <div class="peli-poster"
+                    style="background-image: url('<%= backendUrl %>uploads/<%= peli.filename%>')">
+                    <% if (!peli.filename) { %>
+                        <div class="no-poster">
+                            <%= peli.tit_pelicula %>
+                        </div>
+                    <% } %>
+                    <div class="peli-btns">
+                        <a href="/user/peliculas/<%= peli.id_pelicula %>" class="peli-btn" title="Ver más">👁️</a>
+                        <% let esFavorito = false;
+                           if (typeof favoritos !== 'undefined' && Array.isArray(favoritos)) {
+                               esFavorito = favoritos.some(f => f.id_pelicula === peli.id_pelicula);
+                           }
+                        %>
+                        <form action="/user/userFavoritos/agregar" method="POST" style="display:inline;">
+                            <input type="hidden" name="idPelicula" value="<%= peli.id_pelicula %>">
+                            <button class="peli-btn" title="Añadir a favoritos">
+                                <%= esFavorito ? '❤️' : '🤍' %>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <h2 class="peli-titulo">
+                    <%= peli.tit_pelicula %>
+                </h2>
+                <div class="detalle-card flexColumn">
+                    <p class="detalle-descripcion"><span class="negrita">Director:</span> <%= peli.director %></p>
+                    <p class="detalle-descripcion"><span class="negrita">Año:</span> <%= peli.ano_pelicula %></p>
+                    <p class="detalle-descripcion"><span class="negrita">Género:</span> <%= peli.genero %></p>
+                    <p class="detalle-descripcion"><span class="negrita">Duración:</span> <%= peli.duracion %></p>
                 </div>
             </div>
-        <% }) %>
-
+        <% }); %>
     </div>
-
 </main>
 
 <%- include('../templates/footer') %>

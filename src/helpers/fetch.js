@@ -20,16 +20,19 @@ const conectar = async (urlApi, method = 'GET', body = {}, token) => {
     const resp = await fetch(urlApi, options);
 
     if (resp.ok) {
+      // Leer una sola vez en éxito
       const datos = await resp.json();
       return datos;
     } else {
+      // Leer el cuerpo UNA vez, luego intentar parsear
+      const text = await resp.text();
       try {
-        errorBody = await resp.json();
+        errorBody = JSON.parse(text);
       } catch (err) {
-        errorBody = await resp.text();
+        errorBody = text;
       }
       console.error('Error de la solicitud:', resp.status, errorBody);
-      throw new Error(`Error de la solicitud: ${resp.status} - ${JSON.stringify(errorBody)}`);
+      throw new Error(`Error de la solicitud: ${resp.status} - ${typeof errorBody === 'string' ? errorBody : JSON.stringify(errorBody)}`);
     }
   } catch (error) {
     console.log(error);

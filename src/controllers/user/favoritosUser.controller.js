@@ -25,31 +25,67 @@ const mostrarFavoritos = async (req, res) => {
 	}
 };
 
-// 2. Agregar a favoritos
 const agregarFavorito = async (req, res) => {
-	
+	const token = req.cookies.miToken;
+	const idUser = queId(req);
+	const { idPelicula } = req.body;
+	const datos = {
+		id_pelicula: parseInt(idPelicula, 10),
+		id_usuario: parseInt(idUser, 10)
+	};
+	try {
+		const respuesta = await conectar(`${urlBase}favorito/crear`, 'POST', datos, token);
+		if (!respuesta?.ok) {
+			return res.render('user/favoritosUserPage', {
+				title: 'Mis Favoritos',
+				favoritos: [],
+				error: respuesta?.msg || 'No se pudo agregar a favoritos'
+			});
+		}
+		return res.redirect('/user/userFavoritos');
+	} catch (error) {
+		console.log('Error agregarFavorito:', error);
+		return res.render('user/favoritosUserPage', {
+			title: 'Mis Favoritos',
+			favoritos: [],
+			error: 'Error al agregar favorito'
+		});
+	}
 };
 
 // 3. Eliminar de favoritos
 const eliminarFavorito = async (req, res) => {
 	const token = req.cookies.miToken;
-	const idUser = queId(req);
-	const { idPelicula, idfavorito } = req.body;
-    const datos = {
-        id_favorito: parseInt(idfavorito, 10),
-        id_pelicula: parseInt(idPelicula, 10),
-        id_usuario: parseInt(idUser, 10)
-    };
-    console.log(datos)
+	const { idfavorito } = req.body;
+	const idFavorito = parseInt(idfavorito, 10);
+	if (!idFavorito || Number.isNaN(idFavorito)) {
+		return res.render('user/favoritosUserPage', {
+			title: 'Mis Favoritos',
+			favoritos: [],
+			error: 'Falta id_favorito válido para eliminar'
+		});
+	}
 	try {
-		await conectar(`${urlBase}favoritos/eliminar`, 'DELETE', datos, token);
+		const body = {
+			id_favorito: idFavorito,
+			id_pelicula: parseInt(req.body.idPelicula, 10),
+			id_usuario: parseInt(queId(req), 10)
+		};
+		const respuesta = await conectar(`${urlBase}favorito/eliminar/${idFavorito}`, 'DELETE', body, token);
+		if (!respuesta?.ok) {
+			return res.render('user/favoritosUserPage', {
+				title: 'Mis Favoritos',
+				favoritos: [],
+				error: respuesta?.msg || 'No se pudo eliminar el favorito'
+			});
+		}
 		return res.redirect('/user/userFavoritos');
 	} catch (error) {
-		console.log(error);
-		res.render('user/favoritosUserPage', {
+		console.log('Error eliminarFavorito:', error);
+		return res.render('user/favoritosUserPage', {
 			title: 'Mis Favoritos',
-			//favoritos: Array.isArray(favoritos.data) ? favoritos.data : [],
-			error: 'No se pudo eliminar el favorito'
+			favoritos: [],
+			error: 'Error al eliminar favorito'
 		});
 	}
 };

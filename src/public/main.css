@@ -115,6 +115,7 @@ a {
     top: 60px;
     border-radius: 5px;
     min-width: 150px;
+    z-index: 1000;
 }
 
 .nav a {
@@ -125,6 +126,17 @@ a {
 
 .nav.open {
     display: flex;
+}
+
+/* Nav helpers */
+.menu-toggle {
+    display: none;
+}
+
+.nav-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 /* ========== FORMULARIOS (Login + Register) ========== */
@@ -239,9 +251,7 @@ a {
 }
 
 .pelis-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 15px;
+    grid-template-columns: 1fr;
 }
 
 .peli-card img {

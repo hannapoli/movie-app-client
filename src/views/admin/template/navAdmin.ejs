@@ -1,9 +1,12 @@
-<input type="checkbox" id="menu-toggle" class="menu-toggle">
+<div class="header">
+    <a class="logo" href="/admin">Admin</a>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <label for="menu-toggle" class="hamburger" aria-label="Abrir menú" aria-expanded="false" role="button">☰</label>
 
-
-<label for="menu-toggle" class="hamburger">☰</label>
-
-
-<nav class="nav">
-    <a href="/logout">Cerrar sesión</a>
-</nav>
+    <nav class="nav" aria-label="Menú administrador">
+        <a href="/admin">Inicio</a>
+        <a href="/admin/movies">Películas</a>
+        <a href="/admin/user">Usuarios</a>
+        <a href="/logout">Cerrar sesión</a>
+    </nav>
+</div>
