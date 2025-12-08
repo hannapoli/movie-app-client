@@ -1,0 +1,50 @@
+<%- include('../templates/header') %>
+<main class="container mb100">
+    <h2 class="title">Mis Favoritos</h2>
+    <% if (error) { %>
+        <div class="error"><%= error %></div>
+    <% } %>
+    <% if (favoritos && favoritos.length > 0) { %>
+        <div class="pelis-grid">
+            <% favoritos[0].peliculas.forEach(fav => { %>
+                <div class="peli-card">
+                    <div class="peli-poster"
+                        style=" background-image: url('${backendUrl}uploads/${fav.filename}');">
+                        <% if (!fav.filename) { %>
+                            <div class="no-poster">
+                            <%= fav.tit_pelicula || fav.titulo || 'Sin título' %>
+                            </div>
+                        <% } %>
+                        <div class="peli-btns">
+                            <form action="/user/userFavoritos/eliminar" method="POST" style="display:inline;">
+                                <input type="hidden" name="idfavorito" value="<%= fav.id_favorito %>">
+                                <input type="hidden" name="idPelicula" value="<%= fav.id_pelicula  %>">
+                                <button type="submit" class="peli-btn" title="Eliminar">🗑️</button>
+                            </form>
+                        </div>
+                    </div>
+                    <h2 class="peli-titulo">
+                        <%= fav.tit_pelicula || fav.titulo || 'Sin título' %>
+                    </h2>
+                    <div class="detalle-card flexColumn">
+                        <p class="detalle-descripcion"><span class="negrita">Director:</span>
+                            <%= fav.director %>
+                        </p>
+                        <p class="detalle-descripcion"><span class=" negrita">Año:</span>
+                            <%= fav.ano_pelicula %>
+                        </p>
+                        <p class="detalle-descripcion"><span class="negrita">Género:</span>
+                            <%= fav.genero %>
+                        </p>
+                        <p class="detalle-descripcion"><span class="negrita">Duración:</span>
+                            <%= fav.duracion %>
+                        </p>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } else { %>
+        <p>No tienes favoritos aún.</p>
+    <% } %>
+</main>
+<%- include('../templates/footer') %>
