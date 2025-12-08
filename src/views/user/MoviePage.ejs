@@ -1,0 +1,32 @@
+<%- include('../templates/header') %>
+
+<main class="container mb100">
+
+    <div class="peli-card">
+
+        <img 
+            src="http://localhost:4001/api/v1/uploads/<%= pelicula.filename %>" 
+            alt="<%= pelicula.tit_pelicula %>"
+        >
+
+        <div class="peli-info">
+
+            <p class="peli-titulo"><%= pelicula.tit_pelicula %></p>
+
+            <p><strong>Año:</strong> <%= pelicula.ano_pelicula %></p>
+            <p><strong>Director:</strong> <%= pelicula.director %></p>
+            <p><strong>Duración:</strong> <%= pelicula.duracion %> min</p>
+            <p><strong>Género:</strong> <%= pelicula.genero %></p>
+
+            <!-- BOTÓN FAVORITO -->
+            <form action="/favoritos/<%= pelicula.id_pelicula %>" method="POST">
+                <button class="like-btn">❤ Añadir a favoritos</button>
+            </form>
+
+        </div>
+
+    </div>
+
+</main>
+
+<%- include('../templates/footer') %>

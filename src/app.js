@@ -24,6 +24,8 @@ app.use("/user", require("./routes/user/user.routes"));
 app.use("/admin/user", require("./routes/admin/user/admin.user.routes"));
 app.use("/admin/movies", require("./routes/admin/movies/admin.movies.routes"));
 
+app.use("/uploads", express.static("uploads"));
+
 /* app.use("/user", (req, res) => {
     res.render("./routes/user.routes")
 }) */

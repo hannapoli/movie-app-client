@@ -1,1 +1,25 @@
-<p>PAGINA PRINCIPAL USER</p>
+<%- include('../templates/header') %>
+
+<main class="container">
+    <h1 class="title">¿Qué quieres ver?</h1>
+
+    <div class="options">
+
+        <a href="/user/search" class="option-card">
+            <div class="card-content">
+                <span class="emoji">🎬</span>
+                <h2>Buscar películas</h2>
+            </div>
+        </a>
+
+        <a href="/user/favoritos" class="option-card">
+            <div class="card-content">
+                <span class="emoji">❤️</span>
+                <h2>Mis favoritos</h2>
+            </div>
+        </a>
+
+    </div>
+</main>
+
+<%- include('../templates/footer') %>
