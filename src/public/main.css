@@ -284,7 +284,7 @@ a {
 
 .peli-titulo {
     font-size: 0.9rem;
-    margin: 0;
+    margin: 0.5em;
     flex: 1;
     font-size: 1.1rem;
 }
@@ -306,7 +306,7 @@ a {
     transition: all 0.3s ease;
 }
 
-.container-btn-create {
+.container-btn {
     align-items: center;
     margin-bottom: 1em;
 }

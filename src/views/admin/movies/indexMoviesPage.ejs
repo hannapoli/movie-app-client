@@ -2,7 +2,7 @@
 
     <main class="container">
         <h1>Películas</h1>
-        <div class="flexColumn container-btn-create">
+        <div class="flexColumn container-btn">
             <a href="/admin/movies/create"><button class="btn-primary">Añadir película</button></a>
         </div>
 
@@ -23,14 +23,14 @@
                                         title="Eliminar">🗑️</a>
                                 </div>
                     </div>
+                    <h2 class="peli-titulo">
+                        <%= peli.tit_pelicula %>
+                    </h2>
                     <div class="detalle-card flexColumn">
-                        <h2 class="peli-titulo">
-                            <%= peli.tit_pelicula %>
-                        </h2>
                         <p class="detalle-descripcion"><span class="negrita">Director:</span>
                             <%= peli.director %>
                         </p>
-                        <p class="detalle-descripcion""><span class=" negrita">Año:</span>
+                        <p class="detalle-descripcion"><span class=" negrita">Año:</span>
                             <%= peli.ano_pelicula %>
                         </p>
                         <p class="detalle-descripcion"><span class="negrita">Género:</span>
