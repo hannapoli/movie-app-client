@@ -1,20 +1,27 @@
 <%- include('../../templates/header') %>
-     <main class="container mb100">
-        <h2 class="title">Ver todos Usuarios</h2>
-        <a href="/admin/user/" class="btn-retroceder">Retroceder</a>
-        <div class="pelis-grid" id="pelisGrid">
+
+<main class="container mb100">
+    <h2 class="title">Ver todos los Usuarios</h2>
+    <a href="/admin/user/" class="btn-retroceder">Retroceder</a>
+
+    <div class="usuarios-grid">
         <% usuarios.forEach(usuario => { %>
-            <div class="peli-card">
-                <div class="peli-info">
-                    <p class="peli-titulo"><%= usuario.nombre_usuario %></p>
-                    <p class="peli-titulo"><%= usuario.role_usuario %></p>
-                    <p class="peli-titulo"><%= usuario.email %></p>
-                    <a href='/admin/user/userUpgrade/<%= usuario.id_usuario %>' class="edit-btn">Editar</a>
-                    <a href="/admin/user/confirmar-eliminar/<%= usuario.id_usuario %>" class="delete-btn">Eliminar</a>
+            <div class="usuario-card">
+                <p class="usuario-nombre"><strong>Usuario:</strong> <%= usuario.nombre_usuario %></p>
+                <p class="usuario-rol"><strong>Rol:</strong> <%= usuario.role_usuario %></p>
+                <p class="usuario-email"><strong>Email:</strong> <%= usuario.email %></p>
+
+                <div class="usuario-actions">
+                    <a href="/admin/user/userUpgrade/<%= usuario.id_usuario %>" class="edit-btn">
+                        Editar
+                    </a>
+                    <a href="/admin/user/confirmar-eliminar/<%= usuario.id_usuario %>" class="delete-btn">
+                        Eliminar
+                    </a>
                 </div>
             </div>
         <% }) %>
-        </div>
-    </main>
-<%- include('../../templates/footer') %>
+    </div>
+</main>
 
+<%- include('../../templates/footer') %>

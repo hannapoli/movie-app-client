@@ -332,6 +332,27 @@ a {
 }
 
 
+.btn-retroceder {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 8px 15px;
+    background: #444;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-retroceder:hover {
+    background: #e50914;
+}
+
+
+
 .mb100 {
     margin-bottom: 100px;
 }
@@ -377,6 +398,62 @@ a {
 }
 
 
+/* ===== GRID DE USUARIOS ===== */
+.usuarios-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Card de usuario */
+.usuario-card {
+    background: #222;
+    padding: 15px;
+    border-radius: 8px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-left: 3px solid #e50914;
+}
+
+/* Textos */
+.usuario-nombre,
+.usuario-rol,
+.usuario-email {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.3;
+}
+
+/* Botones de acción */
+.usuario-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.edit-btn,
+.delete-btn {
+    padding: 7px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+}
+
+/* Botón editar (azul suaaave) */
+.edit-btn {
+    background: #1e90ff;
+}
+
+/* Botón eliminar (rojo Netflix) */
+.delete-btn {
+    background: #e50914;
+}
+
 
 /* ========== DESKTOP ========== */
 /* ===============================
@@ -416,6 +493,10 @@ a {
 
     .detalle-info {
         width: 50%;
+    }
+
+    .usuarios-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
