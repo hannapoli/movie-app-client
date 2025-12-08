@@ -15,7 +15,7 @@ const todosUsuarios = async (req, res) =>{
     const idUser = queId(req);
     //console.log(idUser);
     const usuarios = await conectar(`${urlBse}usuario/todos/${idUser}`, 'GET', {}, token);
-    //console.log(usuarios.data);
+    console.log(usuarios.data);
     res.render('admin/user/allUserpage', {
       title: 'PanelUserAll',
       usuarios: usuarios.data,
@@ -86,13 +86,14 @@ const editarUsuario = async (req, res) =>{
     contrasena: req.body.contrasena
   };
   try {
+    console.log(datos);
     const actulizado = await conectar(`${urlBse}usuario/editar/${id}`,'PUT', datos, token); 
     console.log(actulizado);
-    /*return res.render('admin/user/createUserpage', {
+    return res.render('admin/user/editUserpage', {
       title: 'Editar usuario',
       role: 'admin',
       success: 'El usuario se edito exitosamente.'
-    });*/
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).render('admin/user/editUserpage', {

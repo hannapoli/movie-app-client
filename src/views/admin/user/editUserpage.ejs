@@ -1,8 +1,9 @@
 <%- include("../../templates/header.ejs") %>
 
     <main class="auth-container">
-        <h2 class="title">Crear Usuario</h2>
-        <form action="/admin/user/userUpgrade/<%= usuario.id_usuario %>" method="PUT"  name="formRegistro"  novalidate class="auth-form">
+        <h2 class="title">Editar Usuario</h2>
+        <form action="/admin/user/userUpgrade/<%= usuario.id_usuario %>" method="POST"  name="formRegistro"  novalidate class="auth-form">
+            <input type="hidden" name="_method" value="PUT">
             <input type="text" id="nombre_usuario" name="nombre_usuario" placeholder="Nombre" value="<%= usuario.nombre_usuario %>">
             <input type="email" id="email" name="email" placeholder="Email" value="<%= usuario.email %>">
             <select name="role_usuario" id="role_usuario">
