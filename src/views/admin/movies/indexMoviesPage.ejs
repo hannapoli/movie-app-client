@@ -2,55 +2,48 @@
 
     <main class="container">
         <h1>Películas</h1>
-        <a href="/admin/movies/create"><button>Añadir película</button></a>
-        <table>
-            <thead>
-                <tr>
-                    <th>Título</th>
-                    <th>Director</th>
-                    <th>Año</th>
-                    <th>Género</th>
-                    <th>Duración</th>
-                    <th>Imagen</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% peliculas.forEach((peli)=> { %>
-                    <tr>
-                        <td>
+        <div class="flexColumn container-btn-create">
+            <a href="/admin/movies/create"><button class="btn-primary">Añadir película</button></a>
+        </div>
+
+        <div class="pelis-grid">
+            <% peliculas.forEach((peli)=> { %>
+                <div class="peli-card">
+                    <div class="peli-poster"
+                        style="background-image: url('<%= backendUrl %>uploads/<%= peli.filename%>')">
+                        <% if (!peli.filename) { %>
+                            <div class="no-poster">
+                                <%= peli.tit_pelicula %>
+                            </div>
+                            <% } %>
+                                <div class="peli-btns">
+                                    <a href="/admin/movies/edit/<%= peli.id_pelicula %>" class="peli-btn"
+                                        title="Modificar">✏️</a>
+                                    <a href="/admin/movies/delete/<%= peli.id_pelicula %>" class="peli-btn"
+                                        title="Eliminar">🗑️</a>
+                                </div>
+                    </div>
+                    <div class="detalle-card flexColumn">
+                        <h2 class="peli-titulo">
                             <%= peli.tit_pelicula %>
-                        </td>
-                        <td>
+                        </h2>
+                        <p class="detalle-descripcion"><span class="negrita">Director:</span>
                             <%= peli.director %>
-                        </td>
-                        <td>
+                        </p>
+                        <p class="detalle-descripcion""><span class=" negrita">Año:</span>
                             <%= peli.ano_pelicula %>
-                        </td>
-                        <td>
+                        </p>
+                        <p class="detalle-descripcion"><span class="negrita">Género:</span>
                             <%= peli.genero %>
-                        </td>
-                        <td>
+                        </p>
+                        <p class="detalle-descripcion"><span class="negrita">Duración:</span>
                             <%= peli.duracion %>
-                        </td>
-                        <td>
-                            <% if (peli.filename) { %>
-                                <img src="<%= backendUrl %>uploads/<%= peli.filename %>" alt="<%= peli.tit_pelicula %>"
-                                    style="max-width: 4em;">
-                                <% } else { %>
-                                    <span>
-                                        <%= peli.tit_pelicula %>
-                                    </span>
-                                    <% } %>
-                        </td>
-                        <td>
-                            <a href="/admin/movies/edit/<%= peli.id_pelicula %>"><button>✏️</button></a>
-                            <a href="/admin/movies/delete/<%= peli.id_pelicula %>"><button>🗑️</button></a>
-                        </td>
-                    </tr>
-                    <% }); %>
-            </tbody>
-        </table>
+                        </p>
+                    </div>
+                </div>
+                <% }); %>
+        </div>
 
     </main>
+
     <%- include("../../templates/footer") %>

@@ -80,12 +80,10 @@ const editarPeliculaForm = async (req, res) => {
     try {
         const { id } = req.params;
         const respuesta = await conectar(`${urlBase}admin/peliculas/${id}`, 'GET', {}, req.cookies.miToken);
-        const pelicula = respuesta.data;
-        console.log(pelicula);
+        const pelicula = respuesta.data[0];
         res.render('admin/movies/editMoviePage', {
             title: 'Modificar la película',
             role: 'administrador',
-            urlEdit: `${urlBase}admin/peliculas`,
             pelicula,
             backendUrl: process.env.BACKEND_URL
         });
@@ -137,8 +135,7 @@ const eliminarPeliculaForm = async (req, res) => {
     try {
         const { id } = req.params;
         const respuesta = await conectar(`${urlBase}admin/peliculas/${id}`, 'GET', {}, req.cookies.miToken);
-        const pelicula = respuesta.data;
-        console.log(pelicula);
+        const pelicula = respuesta.data[0];
         res.render('admin/movies/deleteMoviePage', {
             title: 'Eliminar la película',
             role: 'administrador',
