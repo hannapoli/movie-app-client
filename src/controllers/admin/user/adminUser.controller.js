@@ -15,7 +15,7 @@ const todosUsuarios = async (req, res) =>{
     const idUser = queId(req);
     //console.log(idUser);
     const usuarios = await conectar(`${urlBse}usuario/todos/${idUser}`, 'GET', {}, token);
-    console.log(usuarios.data);
+    //console.log(usuarios.data);
     res.render('admin/user/allUserpage', {
       title: 'PanelUserAll',
       usuarios: usuarios.data,
@@ -86,12 +86,14 @@ const editarUsuario = async (req, res) =>{
     contrasena: req.body.contrasena
   };
   try {
-    console.log(datos);
+    //console.log(datos);
     const actulizado = await conectar(`${urlBse}usuario/editar/${id}`,'PUT', datos, token); 
-    console.log(actulizado);
+    //console.log(actulizado);
+    const usuarioActualizado = await conectar(`${urlBse}usuario/obtener/${id}`,'GET',{},token);
     return res.render('admin/user/editUserpage', {
       title: 'Editar usuario',
       role: 'admin',
+      usuario: usuarioActualizado[0],
       success: 'El usuario se edito exitosamente.'
     });
   } catch (error) {
@@ -103,8 +105,32 @@ const editarUsuario = async (req, res) =>{
     });
   }
 };
-const eliminarUsuario = (req, res) =>{
-
+const eliminarUsuario = async (req, res) => {
+  const token = req.cookies.miToken;
+  const data =
+  { id_usuario: req.body.id, 
+    email: req.body.email }
+  try {
+    const respuesta = await conectar(`${urlBse}usuario/eliminar`, 'DELETE', data , token);
+      // Redirige o muestra mensaje de éxito
+      return res.redirect('/admin/user/userall');
+  } catch (error) {
+    console.log(error);
+    return res.status(500).render('admin/user/allUserpage', {
+      title: 'PanelUserAll',
+      error: 'Error al eliminar usuario',
+      usuarios: []
+    });
+  }
+};
+const vistaConfirmarEliminarUsuario = async (req, res) => {
+  const token = req.cookies.miToken;
+  const { id } = req.params;
+  const usuario = await conectar(`${urlBse}usuario/obtener/${id}`,'GET',{},token);
+  res.render('admin/user/confirmarEliminarUserpage', {
+    title: 'Confirmar eliminación',
+    usuario: usuario[0]
+  });
 };
 
 
@@ -115,5 +141,6 @@ module.exports = {
   crearUsuario,
   editarUsuario,
   vistaEditarUsuario,
-  eliminarUsuario
+  eliminarUsuario,
+  vistaConfirmarEliminarUsuario
 };

@@ -2,7 +2,6 @@
 
     <main class="auth-container">
         <h2 class="title">Crear Usuario</h2>
-
                 <% if (typeof success !== 'undefined') { %>
                     <div style="color: green; margin-bottom: 1em;">
                         <%= success %>
@@ -13,7 +12,6 @@
                         <%= error %>
                     </div>
                 <% } %>
-
         <form action="/admin/user/userCreateback" method="POST"  name="formRegistro"  novalidate class="auth-form">
             <input type="text" id="nombre_usuario" name="nombre_usuario" placeholder="Nombre">
             <input type="email" id="email" name="email" placeholder="Email">
@@ -25,6 +23,7 @@
             <input type="text" id="contrasena" name="contrasena" placeholder="password">
             <button class="btn-primary" type="submit">enviar</button>
         </form>
+        <a href="/admin/user/" class="btn-retroceder">Retroceder</a>    
     </main>
 <%- include("../../templates/footer") %>
 
