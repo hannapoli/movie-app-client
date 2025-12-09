@@ -1,3 +1,9 @@
+/**
+ * Rutas del panel de películas (admin CRUD).
+ * @module routes/admin/movies
+ * @category Routes
+ * @description Endpoints para gestionar películas desde el panel admin.
+ */
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');

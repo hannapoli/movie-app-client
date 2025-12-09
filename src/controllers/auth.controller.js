@@ -1,3 +1,10 @@
+/**
+ * Controlador de autenticación de usuarios.
+ * @module controllers/auth
+ * @category Controllers
+ * @description Maneja login, registro y logout en el cliente.
+ */
+
 const { conectar } = require('../helpers/fetch');
 const jwt = require('jsonwebtoken');
 const urlBase = process.env.BACKEND_URL;

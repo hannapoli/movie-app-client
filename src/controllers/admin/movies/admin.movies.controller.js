@@ -1,3 +1,9 @@
+/**
+ * Controladores de administración de películas (CRUD vistas).
+ * @module controllers/admin/movies
+ * @category Controllers
+ * @description Vistas y acciones de CRUD de películas para administradores.
+ */
 const { conectar } = require('../../../helpers/fetch');
 const FormData = require('form-data');
 const axios = require('axios');

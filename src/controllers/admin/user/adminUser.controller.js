@@ -1,14 +1,31 @@
+/**
+ * Controladores de administración de usuarios.
+ * @module controllers/admin/users
+ * @category Controllers
+ * @description Vistas y acciones de gestión de usuarios para administradores.
+ */
 // controllers/adminUsers.controller.js
 const { conectar } = require('../../../helpers/fetch');
 const urlBse = process.env.BACKEND_URL;
 const { queId } = require('../../../middlewares/verificarToken');
 
+/**
+ * Renderiza la portada del panel de administración de usuarios.
+ * @param {Object} req
+ * @param {Object} res
+ */
 const inicioUsuario = (req, res) =>{
   res.render('admin/user/UserindexPage', { title: 'PanelUser' });
 };
 
 
 
+/**
+ * Lista todos los usuarios (visibles para el admin autenticado).
+ * Consulta `${BACKEND_URL}usuario/todos/:idAdmin`.
+ * @param {Object} req
+ * @param {Object} res
+ */
 const todosUsuarios = async (req, res) =>{
   try {
     const token = req.cookies.miToken;
@@ -30,6 +47,11 @@ const todosUsuarios = async (req, res) =>{
 }
 
 
+/**
+ * Muestra el formulario de creación de usuario.
+ * @param {Object} req
+ * @param {Object} res
+ */
 const vistaCrearUsuario = (req, res) => {
   res.render('admin/user/createUserpage', {
     title: 'Crear usuario',
@@ -37,6 +59,12 @@ const vistaCrearUsuario = (req, res) => {
   });
 };
 
+/**
+ * Crea un nuevo usuario vía backend.
+ * Espera en el body: nombre_usuario, email, role_usuario, contrasena.
+ * @param {Object} req
+ * @param {Object} res
+ */
 const crearUsuario = async (req, res) => {
   //console.log('Body recibido en crearUsuario:', req.body);
   const datos = {
@@ -66,6 +94,12 @@ const crearUsuario = async (req, res) => {
   }
 };
 
+/**
+ * Muestra el formulario de edición de usuario.
+ * Lee `req.params.id` y obtiene datos actuales del usuario.
+ * @param {Object} req
+ * @param {Object} res
+ */
 const vistaEditarUsuario = async (req, res) =>{
   const token = req.cookies.miToken;
   const { id } = req.params
@@ -76,6 +110,11 @@ const vistaEditarUsuario = async (req, res) =>{
     usuario: usuario[0],
   })
 };
+/**
+ * Actualiza un usuario vía backend.
+ * @param {Object} req
+ * @param {Object} res
+ */
 const editarUsuario = async (req, res) =>{
   const token = req.cookies.miToken;
   const { id } = req.params
@@ -105,6 +144,12 @@ const editarUsuario = async (req, res) =>{
     });
   }
 };
+/**
+ * Elimina un usuario por id.
+ * Body: { id, email }.
+ * @param {Object} req
+ * @param {Object} res
+ */
 const eliminarUsuario = async (req, res) => {
   const token = req.cookies.miToken;
   const data =
@@ -123,6 +168,12 @@ const eliminarUsuario = async (req, res) => {
     });
   }
 };
+/**
+ * Renderiza la vista de confirmación de eliminación.
+ * Obtiene usuario por `req.params.id`.
+ * @param {Object} req
+ * @param {Object} res
+ */
 const vistaConfirmarEliminarUsuario = async (req, res) => {
   const token = req.cookies.miToken;
   const { id } = req.params;

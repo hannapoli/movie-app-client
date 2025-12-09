@@ -1,8 +1,18 @@
+/**
+ * Controlador de búsqueda y detalle de películas para usuario.
+ * @module controllers/user/search
+ * @category Controllers
+ * @description Listado, búsqueda por título y detalle de películas.
+ */
 // Importaciones
 const { conectar } = require('../../helpers/fetch'); // función de manejo del fetch para las peticiones HTTP
 const urlBase = process.env.BACKEND_URL;
 
-// Mostrar la vista allMoviePage del usuario (para cuando entre al buscador)
+/**
+ * Muestra la vista de listado inicial del buscador con todas las películas.
+ * @param {Object} req
+ * @param {Object} res
+ */
 const vistaBuscador = async (req, res) => {
     try {
         const token = req.cookies.miToken;
@@ -19,7 +29,11 @@ const vistaBuscador = async (req, res) => {
     }
 };
 
-// 
+/**
+ * Busca películas por título y renderiza el listado con resultados.
+ * @param {Object} req
+ * @param {Object} res
+ */
 const buscarPeliculas = async (req, res) => {
     try {
         const token = req.cookies.miToken;
@@ -41,6 +55,12 @@ const buscarPeliculas = async (req, res) => {
     }
 };
 
+/**
+ * Obtiene el detalle de una película por ID.
+ * Intenta endpoint directo y, si falla, hace fallback al listado.
+ * @param {Object} req
+ * @param {Object} res
+ */
 const buscarPeliculaPorId = async (req, res) => {
     try {
         const token = req.cookies.miToken;

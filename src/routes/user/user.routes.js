@@ -1,3 +1,9 @@
+/**
+ * Rutas de usuario: principal, películas, buscador y favoritos.
+ * @module routes/user
+ * @category Routes
+ * @description Endpoints del área de usuario: home, listado/búsqueda, detalle y favoritos.
+ */
 const express = require('express');
 const router = express.Router();
 const { mostrarPaginaPrincipal } = require('../../controllers/user/inicioUser.controller');

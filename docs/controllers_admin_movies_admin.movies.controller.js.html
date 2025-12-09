@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/admin/movies/admin.movies.controller.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/admin/movies/admin.movies.controller.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Controladores de administración de películas (CRUD vistas).
+ * @module controllers/admin/movies
+ * @category Controllers
+ * @description Vistas y acciones de CRUD de películas para administradores.
+ */
+const { conectar } = require('../../../helpers/fetch');
+const FormData = require('form-data');
+const axios = require('axios');
+const urlBase = process.env.BACKEND_URL;
+
+const mostrarPeliculas = async (req, res) => {
+    try {
+        const respuesta = await conectar(`${urlBase}admin/peliculas`, 'GET', {}, req.cookies.miToken);
+        const peliculas = respuesta.data;
+        res.render('admin/movies/indexMoviesPage', {
+            title: 'Dashboard películas',
+            role: 'administrador',
+            peliculas: peliculas || [],
+            urlDelete: `${urlBase}admin/peliculas/`,
+            backendUrl: process.env.BACKEND_URL
+        })
+        return peliculas;
+    } catch (error) {
+        res.render('admin/movies/indexMoviesPage', {
+            title: 'Dashboard películas',
+            role: 'administrador',
+            peliculas: [],
+            error: 'Error al cargar las películas'
+        });
+        console.error(error);
+    }
+};
+
+const crearPeliculaForm = (req, res) => {
+
+    res.render('admin/movies/createMoviePage', {
+        title: 'Añadir una película',
+        role: 'administrador'
+    })
+};
+
+const crearPelicula = async (req, res) => {
+    try {
+        const formData = new FormData();
+
+        formData.append('tit_pelicula', req.body.tit_pelicula);
+        formData.append('director', req.body.director);
+        formData.append('ano_pelicula', req.body.ano_pelicula);
+        formData.append('genero', req.body.genero);
+        formData.append('duracion', req.body.duracion);
+        if (req.body.descripcion) {
+            formData.append('descripcion', req.body.descripcion);
+        }
+
+        if (req.file) {
+            formData.append('imagen', req.file.buffer, {
+                filename: req.file.originalname,
+                contentType: req.file.mimetype
+            });
+        }
+
+        //Mandamos los datos al backend por axios
+        const respuesta = await axios.post(`${urlBase}admin/peliculas`, formData, {
+            headers: {
+                'Authorization': `Bearer ${req.cookies.miToken}`,
+                ...formData.getHeaders()
+            }
+        });
+
+        console.log('respuesta:', respuesta.data);
+        return res.redirect('/admin/movies');
+
+    } catch (error) {
+        console.error('Error completo:', error);
+        console.error('Respuesta del backend:', error.response?.data);
+        res.render('admin/movies/createMoviePage', {
+            title: 'Añadir una película',
+            role: 'administrador',
+            error: error.response?.data?.errors || error.message
+        });
+    }
+};
+
+const editarPeliculaForm = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const respuesta = await conectar(`${urlBase}admin/peliculas/${id}`, 'GET', {}, req.cookies.miToken);
+        const pelicula = respuesta.data[0];
+        res.render('admin/movies/editMoviePage', {
+            title: 'Modificar la película',
+            role: 'administrador',
+            pelicula,
+            backendUrl: process.env.BACKEND_URL
+        });
+    } catch (error) {
+        console.error(error);
+        res.redirect('/admin/movies');
+    };
+};
+
+const editarPelicula = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const formData = new FormData();
+
+        formData.append('tit_pelicula', req.body.tit_pelicula);
+        formData.append('director', req.body.director);
+        formData.append('ano_pelicula', req.body.ano_pelicula);
+        formData.append('genero', req.body.genero);
+        formData.append('duracion', req.body.duracion);
+        if (req.body.descripcion) {
+            formData.append('descripcion', req.body.descripcion);
+        }
+
+        if (req.file) {
+            formData.append('imagen', req.file.buffer, {
+                filename: req.file.originalname,
+                contentType: req.file.mimetype
+            });
+        }
+
+        // Mandamos los datos al backend por axios
+        const respuesta = await axios.put(`${urlBase}admin/peliculas/${id}`, formData, {
+            headers: {
+                'Authorization': `Bearer ${req.cookies.miToken}`,
+                ...formData.getHeaders()
+            }
+        });
+
+        console.log('resultado de editar película:', respuesta.data);
+        return res.redirect('/admin/movies');
+
+    } catch (error) {
+        console.error(error);
+        res.redirect('/admin/movies');
+    }
+};
+
+const eliminarPeliculaForm = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const respuesta = await conectar(`${urlBase}admin/peliculas/${id}`, 'GET', {}, req.cookies.miToken);
+        const pelicula = respuesta.data[0];
+        res.render('admin/movies/deleteMoviePage', {
+            title: 'Eliminar la película',
+            role: 'administrador',
+            pelicula,
+            urlDelete: `${urlBase}admin/peliculas/`,
+            backendUrl: process.env.BACKEND_URL
+        })
+    } catch (error) {
+        console.error(error);
+        res.redirect('/admin/movies');
+    }
+};
+
+const eliminarPelicula = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const respuesta = await conectar(`${urlBase}admin/peliculas/${id}`, 'DELETE', {}, req.cookies.miToken);
+        console.log(respuesta);
+        return res.redirect('/admin/movies');
+    } catch (error) {
+        console.error(error);
+        res.redirect('/admin/movies');
+    }
+};
+
+module.exports = { mostrarPeliculas, crearPeliculaForm, crearPelicula, editarPeliculaForm, editarPelicula, eliminarPeliculaForm, eliminarPelicula };</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-app.html">app</a></li><li><a href="module-controllers_admin_movies.html">controllers/admin/movies</a></li><li><a href="module-controllers_admin_panel.html">controllers/admin/panel</a></li><li><a href="module-controllers_admin_users.html">controllers/admin/users</a></li><li><a href="module-controllers_auth.html">controllers/auth</a></li><li><a href="module-controllers_user_favoritos.html">controllers/user/favoritos</a></li><li><a href="module-controllers_user_home.html">controllers/user/home</a></li><li><a href="module-controllers_user_search.html">controllers/user/search</a></li><li><a href="module-middlewares_auth_verifyToken.html">middlewares/auth/verifyToken</a></li><li><a href="module-routes_admin.html">routes/admin</a></li><li><a href="module-routes_admin_movies.html">routes/admin/movies</a></li><li><a href="module-routes_admin_users.html">routes/admin/users</a></li><li><a href="module-routes_auth.html">routes/auth</a></li><li><a href="module-routes_user.html">routes/user</a></li></ul><h3>Global</h3><ul><li><a href="global.html#conectar">conectar</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

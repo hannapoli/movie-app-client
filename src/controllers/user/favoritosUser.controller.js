@@ -1,8 +1,19 @@
+/**
+ * Controlador de favoritos de usuario.
+ * @module controllers/user/favoritos
+ * @category Controllers
+ * @description Gestiona el listado, alta y baja de favoritos del usuario.
+ */
 const { conectar } = require('../../helpers/fetch');
 const { queId } = require('../../middlewares/verificarToken');
 const urlBase = process.env.BACKEND_URL;
 
-// 1. Mostrar todos los favoritos del usuario
+/**
+ * Renderiza la vista con todos los favoritos del usuario autenticado.
+ * Obtiene el `id_usuario` desde el JWT en cookie y consulta al backend.
+ * @param {Object} req
+ * @param {Object} res
+ */
 const mostrarFavoritos = async (req, res) => {
 	const token = req.cookies.miToken;
     const idUser = queId(req);
@@ -25,6 +36,12 @@ const mostrarFavoritos = async (req, res) => {
 	}
 };
 
+/**
+ * Agrega una película a favoritos del usuario.
+ * Espera `req.body.idPelicula` y usa el id del usuario desde el token.
+ * @param {Object} req
+ * @param {Object} res
+ */
 const agregarFavorito = async (req, res) => {
 	const token = req.cookies.miToken;
 	const idUser = queId(req);
@@ -53,7 +70,12 @@ const agregarFavorito = async (req, res) => {
 	}
 };
 
-// 3. Eliminar de favoritos
+/**
+ * Elimina un favorito por su id.
+ * Valida `req.body.idfavorito` y envía los datos requeridos por el backend.
+ * @param {Object} req
+ * @param {Object} res
+ */
 const eliminarFavorito = async (req, res) => {
 	const token = req.cookies.miToken;
 	const { idfavorito } = req.body;

@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Middlewares de verificación de JWT y roles.
+ * @module middlewares/auth/verifyToken
+ */
 const jwt = require('jsonwebtoken');
 const SECRET = process.env.SECRET_KEY;
 

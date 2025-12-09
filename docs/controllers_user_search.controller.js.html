@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/user/search.controller.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/user/search.controller.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Controlador de búsqueda y detalle de películas para usuario.
+ * @module controllers/user/search
+ * @category Controllers
+ * @description Listado, búsqueda por título y detalle de películas.
+ */
+// Importaciones
+const { conectar } = require('../../helpers/fetch'); // función de manejo del fetch para las peticiones HTTP
+const urlBase = process.env.BACKEND_URL;
+
+/**
+ * Muestra la vista de listado inicial del buscador con todas las películas.
+ * @param {Object} req
+ * @param {Object} res
+ */
+const vistaBuscador = async (req, res) => {
+    try {
+        const token = req.cookies.miToken;
+        const url = `${urlBase}peliculas`;
+        const respuesta = await conectar(url, "GET", null, token);
+        return res.render("user/allMoviesPage", {
+            peliculas: respuesta.data || [],
+            msg: null,
+            backendUrl: urlBase
+        });
+    } catch (error) {
+        console.log("Error en vistaBuscador:", error);
+        res.status(500).send("Error mostrando buscador")
+    }
+};
+
+/**
+ * Busca películas por título y renderiza el listado con resultados.
+ * @param {Object} req
+ * @param {Object} res
+ */
+const buscarPeliculas = async (req, res) => {
+    try {
+        const token = req.cookies.miToken;
+        const { tit_pelicula } = req.body;
+        const url = `${urlBase}peliculas/busqueda`;
+        const respuesta = await conectar(url, "POST", { tit_pelicula }, token);
+        return res.render("user/allMoviesPage", {
+            peliculas: respuesta.data || [],
+            msg: null,
+            backendUrl: urlBase
+        });
+    } catch (error) {
+        console.log("Error en buscarPeliculas:", error);
+        return res.render("user/allMoviesPage", {
+            peliculas: [],
+            msg: error?.msg || "No se encontraron resultados",
+            backendUrl: urlBase
+        });
+    }
+};
+
+/**
+ * Obtiene el detalle de una película por ID.
+ * Intenta endpoint directo y, si falla, hace fallback al listado.
+ * @param {Object} req
+ * @param {Object} res
+ */
+const buscarPeliculaPorId = async (req, res) => {
+    try {
+        const token = req.cookies.miToken;
+        const id = req.params.id;
+        // Intento principal: endpoint público por id
+        const url = `${urlBase}peliculas/${id}`;
+        let respuesta;
+        let pelicula = null;
+        try {
+            respuesta = await conectar(url, "GET", {}, token);
+            if (respuesta &amp;&amp; respuesta.ok !== false &amp;&amp; respuesta.data) {
+                pelicula = Array.isArray(respuesta.data) ? respuesta.data[0] : respuesta.data;
+            }
+        } catch (e) {
+            // 404 u otro error: seguimos al fallback
+        }
+
+        // Fallback: cargar todas y filtrar por id si no hubo data
+        if (!pelicula) {
+            const urlAll = `${urlBase}peliculas`;
+            const respAll = await conectar(urlAll, "GET", null, token);
+            const arr = Array.isArray(respAll?.data) ? respAll.data : [];
+            pelicula = arr.find(p => String(p.id_pelicula) === String(id)) || null;
+        }
+
+        if (!pelicula) {
+            return res.render("user/MoviePage", {
+                pelicula: null,
+                msg: respuesta?.msg || "No se encontró la película",
+                backendUrl: urlBase
+            });
+        }
+
+        return res.render("user/MoviePage", {
+            pelicula,
+            msg: null,
+            backendUrl: urlBase
+        });
+    } catch (error) {
+        console.log("Error en buscarPeliculaPorId:", error?.message || error);
+        return res.render("user/MoviePage", {
+            pelicula: null,
+            msg: "Error cargando detalles",
+            backendUrl: urlBase
+        });
+    }
+};
+
+
+module.exports = {
+    vistaBuscador,
+    buscarPeliculas,
+    buscarPeliculaPorId
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-app.html">app</a></li><li><a href="module-controllers_admin_movies.html">controllers/admin/movies</a></li><li><a href="module-controllers_admin_panel.html">controllers/admin/panel</a></li><li><a href="module-controllers_admin_users.html">controllers/admin/users</a></li><li><a href="module-controllers_auth.html">controllers/auth</a></li><li><a href="module-controllers_user_favoritos.html">controllers/user/favoritos</a></li><li><a href="module-controllers_user_home.html">controllers/user/home</a></li><li><a href="module-controllers_user_search.html">controllers/user/search</a></li><li><a href="module-middlewares_auth_verifyToken.html">middlewares/auth/verifyToken</a></li><li><a href="module-routes_admin.html">routes/admin</a></li><li><a href="module-routes_admin_movies.html">routes/admin/movies</a></li><li><a href="module-routes_admin_users.html">routes/admin/users</a></li><li><a href="module-routes_auth.html">routes/auth</a></li><li><a href="module-routes_user.html">routes/user</a></li></ul><h3>Global</h3><ul><li><a href="global.html#conectar">conectar</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

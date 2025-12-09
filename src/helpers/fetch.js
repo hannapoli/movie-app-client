@@ -1,6 +1,16 @@
+/**
+ * Realiza una petición HTTP al backend con `fetch`, adjuntando JWT si existe.
+ * Lee el cuerpo una sola vez y propaga errores con detalle.
+ * @param {string} urlApi - URL absoluta del endpoint del backend.
+ * @param {'GET'|'POST'|'PUT'|'DELETE'} [method='GET'] - Método HTTP.
+ * @param {object} [body={}] - Cuerpo para métodos con payload.
+ * @param {string} [token] - JWT para Authorization Bearer.
+ * @returns {Promise<any>} Respuesta parseada del backend.
+ */
 const conectar = async (urlApi, method = 'GET', body = {}, token) => {
   let errorBody;
   try {
+    /** @type {RequestInit} */
     let options = {
       method,
       headers: {

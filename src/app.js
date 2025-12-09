@@ -1,21 +1,28 @@
+/**
+ * Movie App Client - servidor Express.
+ * Configura estáticos, EJS, cookies y monta rutas para auth, user y admin.
+ * @module app
+ */
 const express = require("express");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 
+/** @type {Object} */
 const app = express();
+/** @type {number} */
 const port = process.env.PORT || 3002;
 
-//Middlewares:
+// Middlewares:
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-//Configuración de EJS:
+// Configuración de EJS:
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 
-//Rutas
+// Rutas
 app.use("/", require("./routes/auth.routes"));
 
 app.use("/admin", require("./routes/admin/admin.routes"));

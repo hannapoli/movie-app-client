@@ -1,3 +1,9 @@
+/**
+ * Rutas de administración de usuarios.
+ * @module routes/admin/users
+ * @category Routes
+ * @description Endpoints para crear, editar, listar y eliminar usuarios.
+ */
 // routes/adminUsers.routes.js
 const express = require('express');
 const router = express.Router();
