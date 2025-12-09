@@ -1,10 +1,21 @@
-<h2>¿Seguro que deseas eliminar este usuario?</h2>
-<p>Nombre: <%= usuario.nombre_usuario %></p>
-<p>Email: <%= usuario.email %></p>
-<form action="/admin/user/user/delete" method="POST">
-  <input type="hidden" name="id" value="<%= usuario.id_usuario %>">
-  <P><%= usuario.id_usuario %></P>
-  <input type="hidden" name="email" value="<%= usuario.email %>">
-  <button type="submit">Confirmar eliminación</button>
-  <a href="/admin/user/userall">Cancelar</a>
-</form>
+<%- include("../../templates/header") %>
+  <%- include("../template/navAdmin") %>
+
+    <main class="container">
+      <h1>Eliminar usuario</h1>
+
+      <h2>¿Seguro que quieres eliminar este usuario?</h2>
+
+      <p class="info-blanco">Nombre: <%= usuario.nombre_usuario %>
+      </p>
+
+      <form action="/admin/user/user/delete" method="POST" class="flexColumn auth-form">
+        <input type="number" id="id" name="id" value="<%= usuario.id_usuario %>" hidden novalidate>
+        <input type="email" id="email" name="email" value="<%= usuario.email %>" novalidate>
+        <div class="flexColumn container-btn">
+          <button type="submit" class="btn-primary">Eliminar</button>
+        </div>
+      </form>
+      <a href="/admin/user/userall">Cancelar</a>
+
+      <%- include("../../templates/footer") %>

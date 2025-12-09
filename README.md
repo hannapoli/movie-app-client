@@ -3,23 +3,24 @@
 Una aplicación web en Node.js + Express con EJS para gestionar autenticación, explorar películas, ver detalle y administrar usuarios y películas (panel admin). Este repositorio contiene el cliente (frontend-render) que consume un backend REST configurado vía `BACKEND_URL`.
 
 ## Características
-- **Auth**: registro e inicio de sesión con JWT via cookie.
+- **Auth**: registro e inicio de la sesión con JSON Web Token (JWT) via cookie.
 - **Usuario**:
-	- Listado de películas y buscador por título.
-	- Detalle de película con imagen, datos y botón de favoritos.
-	- Gestión de favoritos (agregar/eliminar).
-	- Navbar desplegable (hamburger) usable en todas las vistas.
+    - Listado de películas y buscador por título.
+    - Detalle de película con imagen, datos y botón de favoritos.
+    - Gestión de favoritos (agregar/eliminar).
+    - Navbar desplegable (hamburger) usable en todas las vistas.
 - **Admin**:
-	- Panel principal.
-	- CRUD de películas (crear, editar, eliminar, listar).
-	- Administración de usuarios (crear, editar, ver todos, eliminar, ver detalle).
-	- Navbar con accesos directos (Inicio, Películas, Usuarios, Logout).
+    - Panel principal.
+    - CRUD de películas (crear, editar, eliminar, listar).
+    - Administración de usuarios (ver todos los usuarios, crear, editar y eliminarlos).
+    - Navbar con accesos directos (Inicio, Películas, Usuarios, Logout).
 
 ## Tecnologías
 - Node.js, Express
-- EJS (templating)
+- EJS (views, templating)
 - CSS plano (sin frameworks)
 - Fetch helper con JWT (cookie) para consumir el backend
+- Axios para crear, editar y eliminar las películas por el envío de formularios.
 
 ## Dependencias y para qué se usan
 - `express`: servidor HTTP y ruteo. Monta rutas para `/auth`, `/user`, `/admin`, sirve estáticos desde `src/public` y configura el motor EJS.
@@ -40,15 +41,15 @@ Una aplicación web en Node.js + Express con EJS para gestionar autenticación, 
 - Tener configurado y accesible el backend (API REST) y el directorio de `uploads` servido.
 
 ## Configuración
-1) Clona el repo.
-2) Crea/ajusta `.env` en la raíz:
+1) Clona el repositorio.
+2) Crea `.env` en la raíz:
 
-```
-PORT=3002
-BACKEND_URL=http://localhost:4001/api/v1/
-FRONTEND_URL=http://localhost:3002/
-SECRET_KEY='wehnfawrj!%#0938hbjbtc4jkfr4n3e'
-```
+```PORT=3002``` u otro puerto
+URL de backend local:
+```BACKEND_URL=http://localhost:4001/api/v1/```
+o URL de backend desplegado
+```BACKEND_URL=https://movie-app-server-gwvm.onrender.com/api/v1/```
+```SECRET_KEY='la misma llave secreta que utilizas en la API'```
 
 3) Instala dependencias:
 
@@ -56,7 +57,7 @@ SECRET_KEY='wehnfawrj!%#0938hbjbtc4jkfr4n3e'
 npm install
 ```
 
-4) Ejecuta en desarrollo:
+4) Ejecuta en desarrollo (el script usa la dependencia global nodemon):
 
 ```powershell
 npm run dev
@@ -87,13 +88,12 @@ El servidor se levantará en `http://localhost:3002/`.
 - `GET /user/userFavoritos`: Ver favoritos.
 - `POST /user/userFavoritos/agregar`: Agregar favorito.
 - `POST /user/userFavoritos/eliminar`: Eliminar favorito.
-- `GET /admin`: Panel.
+- `GET /admin`: Panel del administrador.
 - `GET /admin/movies`: Películas (admin CRUD vistas).
 - `GET /admin/user`: Usuarios (admin vistas).
 
 ## Variables de entorno
 - `BACKEND_URL`: Base del backend, p.ej. `http://localhost:4001/api/v1/`.
-- `FRONTEND_URL`: Base del cliente, p.ej. `http://localhost:3002/`.
 - `PORT`: Puerto del cliente.
 - `SECRET_KEY`: Clave usada para firmar/validar JWT.
 

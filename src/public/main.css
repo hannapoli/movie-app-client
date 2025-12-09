@@ -25,14 +25,11 @@ img {
     width: 100%;
 }
 
-/* .container {
-    width: 80%;
-    margin: 0 auto;
-} */
-
+h1, h2 {
+    text-align: center;
+}
 
 h1 {
-    text-align: center;
     font-size: 2rem;
     margin-bottom: 30px;
 }
@@ -50,7 +47,6 @@ p {
     font-size: 1rem;
 }
 
-
 a {
     text-decoration: none;
     font-family: Arial, Helvetica, sans-serif;
@@ -64,6 +60,11 @@ a {
     color: #999;
     font-size: 0.9rem;
     margin-top: 1em;
+}
+
+.info-blanco {
+    font-size: 2rem;
+    margin-block: 1em;
 }
 
 .container-fluid {

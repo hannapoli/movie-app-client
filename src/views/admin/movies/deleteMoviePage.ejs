@@ -1,19 +1,22 @@
 <%- include("../../templates/header") %>
-<%- include("../template/navAdmin") %>
+    <%- include("../template/navAdmin") %>
 
-    <main class="container">
-        <h1>Eliminar la película</h1>
+        <main class="container">
+            <h1>Eliminar la película</h1>
+            <h2>¿Seguro que quieres eliminar esta película?</h2>
 
-        <form action="/admin/movies/delete/<%= pelicula.id_pelicula %>" method="POST" enctype="multipart/form-data"
-            class="flexColumn auth-form">
-            <label>Seguro que quiere eliminar esta película?</label>
-            <input type="number" id="id_pelicula" name="id_pelicula" value="<%= pelicula.id_pelicula%>" hidden
-                novalidate>
-            <div class="flexColumn">
-                <label for="tit_pelicula">Título</label>
-                <input type="text" id="tit_pelicula" name="tit_pelicula" value="<%= pelicula.tit_pelicula%>" novalidate>
-            </div>
-            <div class="flexColumn container-btn">
-                <button type="submit" class="btn-primary">Eliminar</button>
-            </div>
+            <form action="/admin/movies/delete/<%= pelicula.id_pelicula %>" method="POST" enctype="multipart/form-data"
+                class="flexColumn auth-form">
+
+                <input type="number" id="id_pelicula" name="id_pelicula" value="<%= pelicula.id_pelicula%>" hidden
+                    novalidate>
+                <div class="flexColumn">
+                    <input type="text" id="tit_pelicula" name="tit_pelicula" value="<%= pelicula.tit_pelicula%>"
+                        novalidate>
+                </div>
+                <div class="flexColumn container-btn">
+                    <button type="submit" class="btn-primary">Eliminar</button>
+                </div>
+            </form>
+            <a href="/admin/movies">Cancelar</a>
             <%- include("../../templates/footer") %>
