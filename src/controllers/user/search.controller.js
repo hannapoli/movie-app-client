@@ -62,48 +62,26 @@ const buscarPeliculas = async (req, res) => {
  * @param {Object} res
  */
 const buscarPeliculaPorId = async (req, res) => {
+    const token = req.cookies.miToken;
+    const id = req.params.id;
+    //console.log(id)
+    const byIdUrl = `${urlBase}peliculas/${id}`;
+
     try {
-        const token = req.cookies.miToken;
-        const id = req.params.id;
-        // Intento principal: endpoint público por id
-        const url = `${urlBase}peliculas/${id}`;
-        let respuesta;
-        let pelicula = null;
-        try {
-            respuesta = await conectar(url, "GET", {}, token);
-            if (respuesta && respuesta.ok !== false && respuesta.data) {
-                pelicula = Array.isArray(respuesta.data) ? respuesta.data[0] : respuesta.data;
-            }
-        } catch (e) {
-            // 404 u otro error: seguimos al fallback
-        }
-
-        // Fallback: cargar todas y filtrar por id si no hubo data
-        if (!pelicula) {
-            const urlAll = `${urlBase}peliculas`;
-            const respAll = await conectar(urlAll, "GET", null, token);
-            const arr = Array.isArray(respAll?.data) ? respAll.data : [];
-            pelicula = arr.find(p => String(p.id_pelicula) === String(id)) || null;
-        }
-
-        if (!pelicula) {
-            return res.render("user/MoviePage", {
-                pelicula: null,
-                msg: respuesta?.msg || "No se encontró la película",
-                backendUrl: urlBase
-            });
-        }
-
+        const resp = await conectar(byIdUrl, "GET", null, token);
+        const datos = resp.data[0];
+        //console.log(resp);
+        //console.log(datos);
         return res.render("user/MoviePage", {
-            pelicula,
-            msg: null,
+            pelicula: datos || null,
+            msg: datos ? null : "No se encontró la película",
             backendUrl: urlBase
         });
     } catch (error) {
         console.log("Error en buscarPeliculaPorId:", error?.message || error);
         return res.render("user/MoviePage", {
             pelicula: null,
-            msg: "Error cargando detalles",
+            msg: "No se encontró la película",
             backendUrl: urlBase
         });
     }

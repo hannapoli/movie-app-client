@@ -83,7 +83,7 @@ El servidor se levantará en `http://localhost:3002/`.
 - `GET /user`: Principal de usuario.
 - `GET /user/peliculas`: Listado y buscador.
 - `POST /user/buscador/buscar`: Buscar por título.
-- `GET /user/peliculas/:id`: Detalle (con fallback si el backend no expone `/peliculas/:id`).
+- `GET /user/peliculas/:id`: Buscamos peliculas por id para mostrar detalles.
 - `GET /user/userFavoritos`: Ver favoritos.
 - `POST /user/userFavoritos/agregar`: Agregar favorito.
 - `POST /user/userFavoritos/eliminar`: Eliminar favorito.
@@ -120,7 +120,6 @@ El servidor se levantará en `http://localhost:3002/`.
 ## Desarrollo rápido
 - Ajusta `BACKEND_URL` a tu API.
 - Asegúrate de servir `/uploads` desde el backend; el cliente genera URLs como `BACKEND_URL/uploads/<filename>`.
-- Si tu backend no expone `GET /peliculas/:id` para usuarios, el cliente hace fallback: trae `GET /peliculas` y filtra por `id_pelicula`.
 
 ## Scripts
 - `npm run dev`: arranca usando nodemon (si está configurado).
